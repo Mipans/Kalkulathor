@@ -1,25 +1,33 @@
-from factor import F
-class T:
-    def __init__(self, coefficient:int=1, *factor:F):
-        self.coefficient = coefficient
-        self.factors = set(factor)
+# This is the term class
 
-        self.isconstant = True
-        for factor in self.factors:
-            if not factor.isconstant:
-                self.isconstant = False
-    
-    def addition(self, other):
-        if self.factors == other.factors:
-            self.coefficient += other.coefficient
-            return self
+class Term:
+    def __init__(self, coefficient:float, degree:float=0):
+        self._coefficient = coefficient
+        self._degree = degree
+
+    # Turning the object to a string
+    def str(self):
+        text = ""
+        if self._coefficient != 1:
+            text = str(self._coefficient)
+        if self._degree == 0:
+            return text
+        elif self._degree == 1:
+            text += "x"
+            return text
         else:
-            return None
+            text += f"x^{self._degree}"
+            return text
 
-    def string(self):
-        t = ""
-        if self.coefficient != 1:
-            t = str(self.coefficient)
-        for factor in self.factors:
-            t += factor.string()
-        return t
+    # Get values
+    def get_degree(self):
+        return self._degree
+
+    def get_coefficient(self):
+        return self._coefficient
+
+    def is_constant(self):
+        if self._degree == 0:
+            return True
+        else:
+            return False

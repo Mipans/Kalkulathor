@@ -1,21 +1,29 @@
-from factor import F
-from term import T
-from polynomial import P
+# This is the main file
 
-polynomial1 = P(T(1, F("x", 2)), T(4, F("x")), T(4))
+from term import Term
+from polynomial import Polynomial
 
-polynomial2 = P(T(1, F("x", 2)), T(4), T(2, F("x")), T(3, F("x")), T(6))
+a = Term(1, 2)
+f = Term(21, 2)
 
+b = Term(8, 1)
+d = Term(24, 1)
+e = Term(9, 1)
+
+c = Term(16, 0)
+g = Term(24, 0)
+h = Term(51, 0)
+
+p = Polynomial([a, d, c, h])
+p2 = Polynomial([f, b, e, g])
 
 def main():
-    print(f"""
-                polinom 1 : {polynomial1.string()}
-    polinom 1'in derecesi : {str(polynomial1.degree)}
-polinom 1'in sabit terimi : {str(polynomial1.constant)}
-                polinom 2 : {polynomial2.string()}
-    polinom 2'in derecesi : {str(polynomial2.degree)}
-polinom 2'in sabit terimi : {str(polynomial2.constant)}
-""")
+    print("\nfirst poly               : ",p.str())
+    print(  "             second poly : ",p2.str())
+    print(  "           - second poly : ",p2.negative().str())
+    print("\nfirst poly + second poly : ",p.addition(p2).str())
+    print("\nfirst poly - second poly : ",p.subtraction(p2).str())
+    print("\nfirst poly * second poly : ",p.multiplication(p2).str())
 
 if __name__ == '__main__':
     main()
