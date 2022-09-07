@@ -98,13 +98,16 @@ class Term:
                 text = "-1"
         else:
             text = str(self.get_coefficient())
-        for v, d in self.get_factors():
-            if d == 0:
+        for var, deg in self.get_factors():
+            if deg == 0:
                 text += ""
-            elif d == 1:
-                text += v
+            elif deg == 1:
+                text += var
             else:
-                text += f"{v}^{d}"
+                newDeg, subScripts = "", ["⁰", "¹", "²", "³", "⁴", "⁵", "⁶", "⁷", "⁸", "⁹"]
+                for d in str(deg):
+                    newDeg += subScripts[int(d)]
+                text += var + newDeg
         return text
 
 one = Term(1)
