@@ -42,6 +42,21 @@ def sort_list_of_strings(oldList:list=[]):
     return newList
 
 
+def sort_list_of_terms(oldList:list=[]):
+    newList = []
+    for a in range(len(oldList)):
+        if len(newList) == 0:
+            newList.append(oldList[a])
+        else:
+            for b in range(len(newList)):
+                if oldList[a].get_degree() > newList[b].get_degree():
+                    newList.insert(b, oldList[a])
+                    break
+            if oldList[a].get_degree() <= newList[len(newList) - 1].get_degree():
+                newList.append(oldList[a])
+    return newList
+
+
 def termify(facc):
     factors = []
     var = deg = ""

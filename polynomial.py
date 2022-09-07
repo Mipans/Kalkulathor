@@ -1,7 +1,7 @@
 # This is the polynomial class
 
 from term import Term
-from functions import termify
+from functions import termify, sort_list_of_terms
 
 class Polynomial:
     def __init__(self, terms:list):
@@ -26,6 +26,7 @@ class Polynomial:
             else:
                 factors = []
             self._terms.append(Term(coe, factors))
+        self._terms = sort_list_of_terms(self._terms).copy()
 
     # Get values
     def get_terms(self):
@@ -58,7 +59,7 @@ class Polynomial:
             factors = ""
             for factor in term.get_factors():
                 factors += factor[0] + str(factor[1])
-            
+
             if factors not in newTerms:
                 newTerms[factors] = coefficient
             else:
@@ -70,7 +71,7 @@ class Polynomial:
             else:
                 factors = []
             newList.append(Term(coe, factors))
-        return Polynomial(newList)
+        return Polynomial(sort_list_of_terms(newList))
 
 
     def multiplication(self, other): # Multiply two polynomials
@@ -102,7 +103,7 @@ class Polynomial:
             else:
                 factors = []
             newList.append(Term(coe, factors))
-        return Polynomial(newList)
+        return Polynomial(sort_list_of_terms(newList))
 
 
     def negative(self): # Multiply a polynomial with -1

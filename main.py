@@ -1,6 +1,6 @@
 # This is the main file
 
-from term import *
+from term import Term
 from polynomial import Polynomial
 
 
@@ -12,16 +12,15 @@ e = Term(2,  [("x",3)])
 f = Term(-3, [])
 
 myList = [a, b, d, e, f]
-numbers = [-5, 2, 1, -26, 9, -2]
 
 poly1 = Polynomial([a, d, f, Term(16)])
 poly2 = Polynomial([b, c, e, Term(-5)])
 
 def main():
-    print("poly1 : " + poly1.str())
+    print("\npoly1 : " + poly1.str())
     print("poly2 : " + poly2.str())
     print("\npoly1 + poly2 = " + poly1.addition(poly2).str())
-    print("\npoly1 * poly2 = " + poly1.multiplication(poly2).str())
+    print("\npoly1 * poly2 = " + poly1.multiplication(poly2).str() + "\n")
 
 if __name__ == '__main__':
     main()

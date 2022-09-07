@@ -42,8 +42,7 @@ class Term:
     def get_degree(self): # Returns the sum of the degrees of all factors
         d = 0
         for factor in self.get_factors():
-            for degree in factor[1]:
-                d += degree
+            d += factor[1]
         return d
 
     def is_constant(self): # Returns True if the term has no factors, else returns False
