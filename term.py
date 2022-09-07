@@ -1,33 +1,110 @@
 # This is the term class
 
-class Term:
-    def __init__(self, coefficient:float, degree:float=0):
-        self._coefficient = coefficient
-        self._degree = degree
+from functions import sort_list_of_strings
 
-    # Turning the object to a string
-    def str(self):
-        text = ""
-        if self._coefficient != 1:
-            text = str(self._coefficient)
-        if self._degree == 0:
-            return text
-        elif self._degree == 1:
-            text += "x"
-            return text
+
+class Term:
+    def __init__(self, coefficient:float=0, factors:list=[]):
+        self._coefficient = coefficient
+        self._factors = list()
+
+        if self.get_coefficient() == 0:
+            self._factors.clear()
         else:
-            text += f"x^{self._degree}"
-            return text
+        # Cleaning the term by collecting the similar factors
+            _newFactors = dict()
+            for factor in factors:
+                var = factor[0]
+                deg = factor[1]
+
+                if var not in _newFactors:
+                    _newFactors[var] = deg
+                else:
+                    _newFactors[var] += deg
+
+            for v, d in _newFactors.items():
+                if d != 0:
+                    self._factors.append((v, d))
+            self._factors = sort_list_of_strings(self._factors).copy()
+
+
 
     # Get values
-    def get_degree(self):
-        return self._degree
+    def get_factors(self): # Returns a list of factors as tuples
+        return self._factors
 
-    def get_coefficient(self):
+    def get_coefficient(self): # Returns the coefficient as a float
         return self._coefficient
 
-    def is_constant(self):
-        if self._degree == 0:
+    def __len__(self): # Returns the amount of factors as an integer
+        return len(self.get_factors())
+
+    def get_degree(self): # Returns the sum of the degrees of all factors
+        d = 0
+        for factor in self.get_factors():
+            for degree in factor[1]:
+                d += degree
+        return d
+
+    def is_constant(self): # Returns True if the term has no factors, else returns False
+        if len(self) == 0:
             return True
         else:
             return False
+
+
+    # Returns the multiplication of the term with another term
+    def multiplication(self, multiplier):
+        oldFactors = dict()
+        newFactors = list()
+        if isinstance(multiplier, Term):
+            coe = (self.get_coefficient(), multiplier.get_coefficient())
+            for v, d in self.get_factors():
+                oldFactors[v] = d
+
+            for factor in multiplier.get_factors():
+                var = factor[0]
+                deg = factor[1]
+
+                if var not in oldFactors:
+                    oldFactors[var] = deg
+                else:
+                    oldFactors[var] += deg
+
+            for v, d in oldFactors.items():
+                newFactors.append((v, d))
+            return Term(coe[0]*coe[1], sort_list_of_strings(newFactors))
+
+        elif isinstance(multiplier, (float, int)):
+            return Term(self.get_coefficient()*multiplier, self.get_factors())
+
+    def negative(self):
+        return Term(self.get_coefficient()*(-1), self.get_factors())
+
+
+    # Turning the object to a string
+    def str(self):
+        if self.get_coefficient() == 0:
+            return "0"
+        elif self.get_coefficient() == 1:
+            if len(self) != 0:
+                text = ""
+            else:
+                text = "1"
+        elif self.get_coefficient() == -1:
+            if len(self) != 0:
+                text = "-"
+            else:
+                text = "-1"
+        else:
+            text = str(self.get_coefficient())
+        for v, d in self.get_factors():
+            if d == 0:
+                text += ""
+            elif d == 1:
+                text += v
+            else:
+                text += f"{v}^{d}"
+        return text
+
+one = Term(1)

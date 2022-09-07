@@ -1,68 +1,109 @@
 # This is the polynomial class
 
 from term import Term
+from functions import termify
+
 class Polynomial:
     def __init__(self, terms:list):
-        self._terms = terms
-        self._new_terms = dict()
+        self._terms = []
+    
+        # Clean the polynomial by collecting the similar terms
+        new_terms = dict()
+        for term in terms:
+            factors = ""
+            for factor in term.get_factors():
+                factors += factor[0] + str(factor[1])
+            coefficient = term.get_coefficient()
 
-        # Clean the polynomial by adding the similar terms
-        for first in range(len(self)):
-            firstTerm = self._terms[first]
-
-            if firstTerm.get_degree() not in self._new_terms:
-                self._new_terms[firstTerm.get_degree()] = firstTerm.get_coefficient()
+            if factors not in new_terms:
+                new_terms[factors] = coefficient
             else:
-                self._new_terms[firstTerm.get_degree()] += firstTerm.get_coefficient()
+                new_terms[factors] += coefficient
 
-        self._terms.clear()
-        for d, c in self._new_terms.items():
-            self._terms.append(Term(c, d))
-        self._new_terms.clear()
+        for fac, coe in new_terms.items():
+            if fac != '':
+                factors = termify(fac)
+            else:
+                factors = []
+            self._terms.append(Term(coe, factors))
+
+    # Get values
+    def get_terms(self):
+        return self._terms
+
+    def get_degree(self):
+        d = int(0)
+        for t in self.get_terms():
+            if t.get_degree() < d:
+                d = t.get_degree()
+        return d
+
+    def __len__(self):
+        return len(self._terms)
 
 
     def addition(self, other): # Add two polynomials
         newTerms = dict()
         newList = []
-        for first in range(len(self)):
-            firstTerm = self._terms[first]
+        for term in self.get_terms():
+            coefficient = term.get_coefficient()
+            factors = ""
+            for factor in term.get_factors():
+                factors += factor[0] + str(factor[1])
 
-            if firstTerm.get_degree() not in newTerms:
-                newTerms[firstTerm.get_degree()] = firstTerm.get_coefficient()
+            newTerms[factors] = coefficient
 
-        for second in range(len(other)):
-            secondTerm = other._terms[second]
-        
-            if secondTerm.get_degree() not in newTerms:
-                newTerms[secondTerm.get_degree()] = secondTerm.get_coefficient()
+        for term in other.get_terms():
+            coefficient = term.get_coefficient()
+            factors = ""
+            for factor in term.get_factors():
+                factors += factor[0] + str(factor[1])
+            
+            if factors not in newTerms:
+                newTerms[factors] = coefficient
             else:
-                newTerms[secondTerm.get_degree()] += secondTerm.get_coefficient()
+                newTerms[factors] += coefficient
 
-        for d, c in newTerms.items():
-            newList.append(Term(c, d))
+        for fac, coe in newTerms.items():
+            if fac != '':
+                factors = termify(fac)
+            else:
+                factors = []
+            newList.append(Term(coe, factors))
         return Polynomial(newList)
-    
+
 
     def multiplication(self, other): # Multiply two polynomials
-        newTerms = dict()
         newList = []
         for first in range(len(self)):
             firstTerm = self._terms[first]
 
             for second in range(len(other)):
                 secondTerm = other._terms[second]
+                
+                newList.append(secondTerm.multiplication(firstTerm))
+            
+        newTerms = dict()
+        for term in newList:
+            factors = ""
+            for factor in term.get_factors():
+                factors += factor[0] + str(factor[1])
+            coefficient = term.get_coefficient()
 
-                degree = firstTerm.get_degree() + secondTerm.get_degree()
-                coefficient = firstTerm.get_coefficient() * secondTerm.get_coefficient()
-                if degree not in newTerms:
-                    newTerms[degree] = coefficient
-                else:
-                    newTerms[degree] += coefficient
+            if factors not in newTerms:
+                newTerms[factors] = coefficient
+            else:
+                newTerms[factors] += coefficient
 
-        for d, c in newTerms.items():
-            newList.append(Term(c, d))
+        newList.clear()
+        for fac, coe in newTerms.items():
+            if fac != '':
+                factors = termify(fac)
+            else:
+                factors = []
+            newList.append(Term(coe, factors))
         return Polynomial(newList)
-    
+
 
     def negative(self): # Multiply a polynomial with -1
         n = Polynomial([Term(-1)])
@@ -73,23 +114,14 @@ class Polynomial:
         return self.addition(other.negative())
 
 
-    def str(self): # Turn the polynominal to a string
+    def str(self): # Turn the object to a string
         text = ""
-        for term in self._terms:
-            text += f" + {term.str()}"
-        text = text.replace(" + ", "", 1)
+        for i in range(len(self)):
+            term = self.get_terms()[i]
+            if term.get_coefficient() < 0:
+                text += " - " + term.str().replace("-", "")
+            else:
+                text += " + " + term.str()
+                if i == 0 and term.get_coefficient() > 0:
+                    text.replace(" + ", "")
         return text
-    
-
-    def get_terms(self): # Returns a list of Term objects
-        return self._terms
-    
-    def get_degree(self):
-        d = int(0)
-        for t in self.get_terms():
-            if t.get_degree() < d:
-                d = t.get_degree()
-        return d
-
-    def __len__(self):
-        return len(self._terms)
