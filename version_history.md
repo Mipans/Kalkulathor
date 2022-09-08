@@ -5,6 +5,15 @@
 * Renamed ".str()" methods as ".__str__()" (why haven't i done this since v.0.1.1 ...)
 
 
+# v0.3.2
+
+* Intruduced "sort_list_of_terms()"
+- It sorts a list of terms alphabethically according to the Terms variables
+
+* Deleted Factors.
+- *Little sad violing starts playing*
+
+
 # v0.3.1
 
 * Renamed some variables in the Term class.
