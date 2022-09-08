@@ -4,7 +4,7 @@ from functions import sort_list_of_strings
 
 
 class Term:
-    def __init__(self, coefficient:float=0, factors:tuple=()):
+    def __init__(self, coefficient:float=0, factors:list=[]):
         self._coefficient = coefficient
         self._factors = list()
 

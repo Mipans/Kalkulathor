@@ -4,7 +4,7 @@ from term import Term
 from functions import termify, sort_list_of_terms
 
 class Polynomial:
-    def __init__(self, terms:tuple=()):
+    def __init__(self, terms:list=[Term(0)]):
         self._terms = []
     
         # Clean the polynomial by collecting the similar terms
