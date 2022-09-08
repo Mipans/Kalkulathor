@@ -2,7 +2,7 @@
 
 * Intruduced version history (hey :D)
 
-* Renamed ".str()" methods as ".__str__()" (why haven't i done this since v.0.1.1 ...)
+* Renamed ".str()" methods as ".\__str__()" (why haven't i done this since v.0.1.1 ...)
 
 
 # v0.3.2
@@ -38,7 +38,7 @@
     - Now each Term has a coefficient and a list of tuples that represent it's factors. 
     - If two or factors with the same variable was passed in while initializing the Term it sums the degrees of them into one factor.
     - Intruduced ".get_factors()" method which returns a list of factors represented in tuples.
-    - Intruduced ".__len__()" method which returns the number of factors.
+    - Intruduced ".\__len__()" method which returns the number of factors.
     - ".get_degree()" method now retunrs the sum of all degrees of the Terms factors.
     - Intruduced ".multiplication()" method which takes in another Term as input and returns a Term with the coefficient and factors of multiplication of previous Terms.
     - Intruduced ".negative()" method which multiplies the Term with -1
@@ -65,7 +65,7 @@
     - The subtraction method takes in another Polynomial as input and adds the negative of the input Polynomial.
 
 * Added "get" methods to Polynomials
-    - ".__len__()" method retuns the number of Terms
+    - ".\__len__()" method retuns the number of Terms
 
 * Added "get" methods to Terms
     - ".get_degree()" method retuns the degree of the Term
