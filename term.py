@@ -82,7 +82,7 @@ class Term:
 
 
     # Turning the object to a string
-    def str(self):
+    def __str__(self):
         if self.get_coefficient() == 0:
             return "0"
         elif self.get_coefficient() == 1:

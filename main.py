@@ -17,10 +17,10 @@ poly1 = Polynomial([a, d, f, Term(16)])
 poly2 = Polynomial([b, c, e, Term(-5)])
 
 def main():
-    print("\npoly1 : " + poly1.str())
-    print("poly2 : " + poly2.str())
-    print("\npoly1 + poly2 = " + poly1.addition(poly2).str())
-    print("\npoly1 * poly2 = " + poly1.multiplication(poly2).str() + "\n")
+    print("\npoly1 : " + str(poly1))
+    print("poly2 : " + str(poly2))
+    print("\npoly1 + poly2 = " + str(poly1.addition(poly2)))
+    print("\npoly1 * poly2 = " + str(poly1.multiplication(poly2)) + "\n")
 
 if __name__ == '__main__':
     main()

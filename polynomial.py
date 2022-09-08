@@ -115,14 +115,14 @@ class Polynomial:
         return self.addition(other.negative())
 
 
-    def str(self): # Turn the object to a string
+    def __str__(self): # Turn the object to a string
         text = ""
         for i in range(len(self)):
             term = self.get_terms()[i]
             if term.get_coefficient() < 0:
-                text += " - " + term.str().replace("-", "")
+                text += " - " + str(term).replace("-", "")
             else:
-                text += " + " + term.str()
+                text += " + " + str(term)
                 if i == 0 and term.get_coefficient() > 0:
                     text.replace(" + ", "")
         return text
