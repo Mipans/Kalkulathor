@@ -1,3 +1,9 @@
+# v0.3.4
+
+* Intruduced derivative method to Polynomials
+    - It takes in a string which represents the variable as input and returns the derivative of the polynomial for the given variable
+
+
 # v0.3.3
 
 * Intruduced version history (hey :D)
@@ -57,7 +63,7 @@
 
 * Removed poly-variabled terms
     - Now each Term object has a coefficient and a degree. Every term has the same variable (x).
- 
+
 * Polynomials now support addition, subtraction and multiplication
     - The addition method takes in another Polynomial as input and sums the coefficients of the Terms that has the same degree. If a Terms has unique degree then they get passed in without any modification.
     - The multiplication method takes in another Polynomial as input and multiplies each Terms of both Polynomials. If there are Terms with same degrees they get summed.

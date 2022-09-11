@@ -28,6 +28,9 @@ class Polynomial:
             self._terms.append(Term(coe, factors))
         self._terms = sort_list_of_terms(self._terms).copy()
 
+        if len(self.get_terms()) == 0:
+            self._terms.append(Term(0))
+
     # Get values
     def get_terms(self):
         return self._terms
@@ -115,6 +118,24 @@ class Polynomial:
         return self.addition(other.negative())
 
 
+    def derivative(self, variable:str): # Take the derivative of a Polynomial
+        newTerms = []
+        for term in self.get_terms():
+            newCoefficient = term.get_coefficient()
+            newFactors = []
+            yes = False
+            for factor in term.get_factors():
+                if factor[0] != variable:
+                    newFactors.append(factor)
+                else:
+                    yes = True
+                    newCoefficient *= factor[1]
+                    newFactors.append((factor[0], factor[1]-1))
+            if yes:
+                newTerms.append(Term(newCoefficient, newFactors))
+        return Polynomial(newTerms)
+
+
     def __str__(self): # Turn the object to a string
         text = ""
         for i in range(len(self)):
@@ -122,7 +143,8 @@ class Polynomial:
             if term.get_coefficient() < 0:
                 text += " - " + str(term).replace("-", "")
             else:
-                text += " + " + str(term)
-                if i == 0 and term.get_coefficient() > 0:
-                    text.replace(" + ", "")
+                if i > 0:
+                    text += " + " + str(term)
+                else:
+                    text += str(term)
         return text

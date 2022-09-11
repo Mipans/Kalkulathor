@@ -21,6 +21,13 @@ def main():
     print("poly2 : " + str(poly2))
     print("\npoly1 + poly2 = " + str(poly1.addition(poly2)))
     print("\npoly1 * poly2 = " + str(poly1.multiplication(poly2)) + "\n")
+    print("derivative of poly1 based on x = " + str(poly1.derivative("x")))
+    print("derivative of poly1 based on y = " + str(poly1.derivative("y")))
+    print("derivative of poly2 based on x = " + str(poly2.derivative("x")))
+    print("derivative of poly2 based on y = " + str(poly2.derivative("y")))
+    while True:
+        continue
+
 
 if __name__ == '__main__':
     main()
